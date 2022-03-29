@@ -1,0 +1,108 @@
+﻿{{template "blog/head.html" .}}
+<!-- 主体（一般只改变这里的内容） -->
+<div class="blog-body">
+    <!-- 这个一般才是真正的主体内容 -->
+    <div class="blog-container">
+        <div class="blog-main">
+
+            <!-- 网站公告提示 -->
+            <div class="home-tips shadow">
+                <i style="float:left;line-height:20px;" class="fa fa-volume-up"></i>
+                <div class="home-tips-container">
+                    <marquee behavior="scroll" direction="left">      <!-- 实现文字前后滚动 -->
+                        <span id="jinrishici-sentence" style="font-size: 13px">正在加载今日诗词....</span>
+                        <script  src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+                    </marquee>
+                </div>
+            </div>
+
+            <!--左边文章列表-->
+            <div class="blog-main-left">
+            {{range .list}}
+                <div class="article shadow">
+                    <div class="article-left">
+                        <div class="article-title">
+                            <a href="detail.html?id={{.Id}}">{{.Title}}</a>
+                        </div>
+                        <div class="article-abstract">
+                        {{.Info}}
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="article-footer">
+                        <span><i class="fa fa-clock-o"></i>&nbsp;&nbsp; {{date .Updated "Y-m-d"}}</span>
+                        <span class="article-author"><i class="fa fa-user"></i>&nbsp;&nbsp;xuehuizzz</span>
+                        <span><i class="fa fa-tag"></i>&nbsp;&nbsp;<a href="#">{{.Tags}}</a></span>
+                        <span class="article-viewinfo"><i class="fa fa-eye"></i>&nbsp;{{.Views}}</span>
+                        <span class="article-viewinfo"><i class="fa fa-commenting"></i>&nbsp;0</span>
+                    </div>
+                </div>
+            {{end}}
+
+                <div class="layui-box layui-laypage layui-laypage-default" id="layui-laypage-0">
+                {{str2html .pagebar}}
+                </div>
+            </div>
+            <!--右边小栏目-->
+            <div class="blog-main-right">
+                <div class="blogerinfo shadow">
+                    <div class="blogerinfo-figure">
+                        <img src="/static/images/es.jpg" alt="xuehuizzz"
+                             style="width: 100px; height: 100px; border-color: papayawhip; border: 1px solid;"/>
+                    </div>
+                    <p class="blogerinfo-nickname">xuehuizzz</p>
+                    <p class="blogerinfo-introduce">为中华之崛起而读书</p>
+                    <p class="blogerinfo-location"><i class="fa fa-location-arrow"></i>&nbsp;中国 - 上海</p>
+                    <hr/>
+                    <div class="blogerinfo-contact">
+                        <a target="_blank" title="QQ交流"
+                           href="tencent://Message/?Uin=1511773141&amp;websiteName=q-zone.qq.com&amp;Menu=yes"><i
+                                class="fa fa-qq fa-2x"></i></a>
+                        <a target="_blank" title="给我写信" href="mailto:1511773141@qq.com"><i
+                                class="fa fa-envelope fa-2x"></i></a>
+                        <a target="_blank" title="新浪微博" href="javascript:layer.msg('转到你的微博主页')"><i
+                                class="fa fa-weibo fa-2x"></i></a>
+                        <a target="_blank" title="github" href="https://github.com/xuehuizzz"><i
+                                class="fa fa-github fa-2x"></i></a>
+                    </div>
+                </div>
+                <div></div><!--占位-->
+                <div class="blog-module shadow">
+                    <div class="blog-module-title">友情链接</div>
+                    <ul class="blogroll">
+                        <li><a target="_blank" href="https://voice.baidu.com/act/newpneumonia/newpneumonia" title="页签">实时疫情</a>
+                        </li>
+                        <li><a target="_blank" href="https://tophub.today/" title="页签">今日热榜</a></li>
+                    </ul>
+                </div>
+                <div class="article-category shadow">
+                    <div class="article-category-title">分类导航</div>
+                {{range .cates}}
+                {{if gt .Id 2}}
+                    <a href="/article?cate_id={{.Id}}">{{.Name}}</a>
+                {{end}}
+                {{end}}
+                    <div class="clear"></div>
+                </div>
+
+                <div class="blog-module shadow">
+                    <div class="blog-module-title">热文排行</div>
+                    <ul class="fa-ul blog-module-ul">
+                    {{range .hosts}}
+                        <li style="line-height: 30px"><i class="fa-li fa fa-hand-o-right"></i><a
+                                href="detail.html?id={{.Id}}">{{.Title}}</a></li>
+                    {{end}}
+                    </ul>
+                </div>
+
+
+            </div>
+
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+<!-- 底部 -->
+{{template "blog/foot.html" .}}
+</body>
+</html>
